@@ -34,7 +34,6 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public boolean onPreBind(ViewDataBinding binding) {
-                System.out.println("on pre Bind");
                 Transition transition = new AutoTransition();
                 transition.setDuration(1000);
                 transition.setInterpolator(new AccelerateDecelerateInterpolator());
@@ -45,7 +44,6 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onCanceled(ViewDataBinding binding) {
-                System.out.println("on canceled");
                 super.onCanceled(binding);
             }
         });
@@ -53,5 +51,13 @@ public class MainActivity extends AppCompatActivity {
         binding.recycler.setLayoutManager(new GridLayoutManager(this,3));
         bindingAdapter = new BindingAdapter(this,binding.recycler.getWidth());
         binding.recycler.setAdapter(bindingAdapter);
+    }
+
+    @Override
+    protected void onDestroy() {
+        if(mPresenter != null){
+            mPresenter.quit();
+        }
+        super.onDestroy();
     }
 }

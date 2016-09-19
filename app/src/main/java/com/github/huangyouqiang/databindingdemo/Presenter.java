@@ -20,6 +20,7 @@ public class Presenter extends BaseObservable {
     DateFormat format;
     public String name;
     private String oriStr;
+    Thread newThread;
 
     public Presenter(String str){
         this.name = str;
@@ -27,7 +28,20 @@ public class Presenter extends BaseObservable {
         this.ObservableStr.set("you are you");
         format = new SimpleDateFormat("hh:mm:ss");
         this.map.put("time", format.format(new Date()));
-
+        newThread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    while(true) {
+                        Thread.sleep(2000);
+                        map.put("time", format.format(new Date()));
+                    }
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+        newThread.start();
     }
 
     public void setName(String name) {
@@ -51,5 +65,12 @@ public class Presenter extends BaseObservable {
     public static void setText(TextView text,String value){
         TextViewBindingAdapter.setText(text,value);
       //  System.out.println(text.getId()+" set text :"+value);
+    }
+    public void quit(){
+        if(newThread == null){
+            if(newThread.isAlive()){
+                newThread.interrupt();
+            }
+        }
     }
 }
