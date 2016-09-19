@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <data>
+        <import type="android.view.View"/>
+        <variable
+            name="item"
+            type="com.github.huangyouqiang.databindingdemo.RecyclerHandler"/>
+    </data>
+        <Button
+            android:id="@+id/btn"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_margin="20dp"
+            android:background="@drawable/button_bg"
+            android:textColor="@android:color/white"
+            android:onClick="@{item.onClick}"
+            android:visibility="@{item.shouldShow? View.VISIBLE:View.INVISIBLE}"
+            android:text="@{item.text}"/>
+</layout>
