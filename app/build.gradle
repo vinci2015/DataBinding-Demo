@@ -1,4 +1,5 @@
 apply plugin: 'com.android.application'
+apply plugin: 'android-aspectjx'
 
 android {
     compileSdkVersion 24
@@ -20,6 +21,12 @@ android {
     dataBinding{
         enabled = true
     }
+
+    aspectjx {
+        //指定只对含有关键字'universal-image-loader', 'AspectJX-Demo/library'的库进行织入扫描，忽略其他库，提升编译效率
+        includeJarFilter  'DataBindingDemo/aspectjlibrary'
+      //  excludeJarFilter 'universal-image-loader'
+    }
 }
 
 dependencies {
@@ -27,4 +34,5 @@ dependencies {
     testCompile 'junit:junit:4.12'
     compile 'com.android.support:appcompat-v7:24.2.0'
     compile 'com.android.support:recyclerview-v7:24.2.0'
+    compile project(':aspectjlibrary')
 }

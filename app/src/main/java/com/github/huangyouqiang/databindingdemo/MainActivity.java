@@ -28,7 +28,6 @@ public class MainActivity extends AppCompatActivity {
         binding.addOnRebindCallback(new OnRebindCallback() {
             @Override
             public void onBound(ViewDataBinding binding) {
-                System.out.println("on Bound");
                 super.onBound(binding);
             }
 
@@ -59,5 +58,8 @@ public class MainActivity extends AppCompatActivity {
             mPresenter.quit();
         }
         super.onDestroy();
+    }
+    private void log(String s){
+        System.out.println("haha "+s);
     }
 }
